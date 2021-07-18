@@ -9,12 +9,14 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import tk.mybatis.mapper.entity.Example;
 import tk.mybatis.mapper.util.StringUtil;
 
 import java.util.List;
+
 
 @Service
 public class BrandService {
@@ -49,5 +51,21 @@ public class BrandService {
         PageInfo<Brand> pageInfo=new PageInfo<>(brandList);
 
         return new PageResult<>(pageInfo.getTotal(),pageInfo.getList());
+    }
+
+    /**
+     * 新增品牌
+     * @param brand
+     * @param cids
+     */
+    @Transactional
+    public void saveBrand(Brand brand, List<Long> cids) {
+        //先新增brand
+        this.brandMapper.insertSelective(brand);
+        //在新增中间表
+        cids.forEach(cid->{
+            this.brandMapper.insertCategoryAndBrand(cid,brand.getId());
+        });
+
     }
 }
