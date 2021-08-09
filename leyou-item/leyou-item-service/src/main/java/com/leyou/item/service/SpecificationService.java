@@ -36,9 +36,12 @@ public class SpecificationService {
      * @param gid
      * @return
      */
-    public List<SpecParam> queryParamsByFGid(Long gid) {
+    public List<SpecParam> queryParamsByFGid(Long gid,Long cid,Boolean genneric,Boolean searching) {
         SpecParam record=new SpecParam();
         record.setGroupId(gid);
+        record.setCid(cid);
+        record.setGeneric(genneric);
+        record.setSearching(searching);
         return this.specParamMapper.select(record);
     }
 }

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -44,8 +45,11 @@ public class SpecificationController {
      * @return
      */
      @GetMapping("params")
-     public ResponseEntity<List<SpecParam>> queryParamByGid(@Param("gid") Long gid){
-        List<SpecParam> params=this.specificationService.queryParamsByFGid(gid);
+     public ResponseEntity<List<SpecParam>> queryParamByGid(@RequestParam(value = "gid",required = false) Long gid,
+                                                            @RequestParam(value = "cid",required = false) Long cid,
+                                                            @RequestParam(value = "generic",required = false)Boolean generic,
+                                                            @RequestParam(value = "searching",required = false)Boolean searching){
+        List<SpecParam> params=this.specificationService.queryParamsByFGid(gid,cid,generic,searching);
         if(CollectionUtils.isEmpty(params)){
             return ResponseEntity.notFound().build();
         }
