@@ -40,6 +40,6 @@ public interface GoodsApi {
      * @return
      */
     @GetMapping("sku/list")
-    public ResponseEntity<List<Sku>> querySkuBySpuId(@RequestParam("id") Long spuId);
+    public List<Sku> querySkuBySpuId(@RequestParam("id") Long spuId);
 
 }
