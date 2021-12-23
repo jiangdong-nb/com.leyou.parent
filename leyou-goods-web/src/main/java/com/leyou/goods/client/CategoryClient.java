@@ -1,4 +1,4 @@
-package com.leyou.search.client;
+package com.leyou.goods.client;
 
 import api.CategoryApi;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -9,5 +9,5 @@ import org.springframework.cloud.openfeign.FeignClient;
  */
 
 @FeignClient("item-service")
-public interface Category extends CategoryApi {
+public interface CategoryClient extends CategoryApi {
 }

@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -54,5 +55,14 @@ public class SpecificationController {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(params);
+     }
+
+     @GetMapping("group/param/{cid}")
+    public ResponseEntity<List<SpecGroup>> queryGroupsWithParams(@PathVariable("cid") Long cid){
+         List<SpecGroup> groups=this.specificationService.queryGroupsWithParam(cid);
+         if(CollectionUtils.isEmpty(groups)){
+             return ResponseEntity.notFound().build();
+         }
+         return ResponseEntity.ok(groups);
      }
 }
